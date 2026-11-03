@@ -3,119 +3,349 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ikdmtm — 作ったものの目録</title>
-<meta name="description" content="ikdmtm が個人で作っているゲームとシミュレーションの目録。">
+<title>ikdmtm — 作ったもの</title>
+<meta name="description" content="個人で作っているゲームとシミュレーションを集めました。">
+<meta property="og:title" content="ikdmtm — 作ったもの">
+<meta property="og:description" content="個人で作っているゲームとシミュレーションを集めました。">
+<meta property="og:image" content="https://ikdmtm.github.io/assets/ant.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
 <style>
-  :root { --paper:#efebe2; --ink:#1d1a16; --sub:#6a6358; --line:#cfc8b9; --mark:#b93a1c; }
   * { box-sizing:border-box; margin:0; }
-  html { -webkit-text-size-adjust:100%; }
-  body { background:var(--paper); color:var(--ink); font:400 16px/1.9 "Zen Kaku Gothic New",system-ui,sans-serif; }
-  a { color:inherit; }
-  img { display:block; width:100%; height:auto; }
-  .wrap { max-width:1240px; margin:0 auto; padding:0 clamp(20px,4vw,56px); }
-
-  header { padding:clamp(56px,10vw,120px) 0 clamp(40px,6vw,72px); }
-  h1 { font:700 clamp(64px,15vw,190px)/.95 "Shippori Mincho",serif; letter-spacing:-.02em; }
-  .lede { margin-top:28px; font:500 clamp(18px,2.2vw,24px)/1.7 "Shippori Mincho",serif; }
-
-  .index { list-style:none; padding:0; border-top:1px solid var(--ink); columns:2; column-gap:40px; }
-  .index li { break-inside:avoid; border-bottom:1px solid var(--line); }
-  .index a { display:flex; gap:14px; align-items:baseline; padding:9px 0; text-decoration:none; }
-  .index a:hover b { color:var(--mark); }
-  .index i { font:500 13px "Shippori Mincho",serif; color:var(--sub); }
-  .index b { font-weight:500; }
-  .index span { margin-left:auto; font-size:13px; color:var(--sub); }
-
-  .work { display:grid; grid-template-columns:minmax(0,4fr) minmax(0,8fr); column-gap:clamp(24px,4vw,56px); padding:clamp(48px,7vw,88px) 0; border-bottom:1px solid var(--ink); scroll-margin-top:12px; }
-  .no { font:500 14px "Shippori Mincho",serif; color:var(--mark); }
-  h2 { margin-top:6px; font:700 clamp(30px,3.6vw,44px)/1.25 "Shippori Mincho",serif; }
-  .kind { margin-top:6px; font-size:14px; color:var(--sub); }
-  .desc { margin-top:20px; }
-  .tech { margin-top:18px; font-size:13px; line-height:1.7; color:var(--sub); }
-  .go { display:inline-block; margin-top:20px; font-weight:700; color:var(--mark); text-underline-offset:5px; }
-  .go:hover { color:var(--ink); }
-  .state { display:block; margin-top:20px; font-size:14px; font-weight:500; color:var(--sub); }
-  .sticky { position:sticky; top:32px; align-self:start; }
-  .shot { background:#111; }
-  footer { padding:40px 0 64px; font-size:14px; color:var(--sub); }
-
-  @media (max-width:800px) {
-    .index { columns:1; }
-    .work { grid-template-columns:minmax(0,1fr); row-gap:24px; }
-    .sticky { position:static; }
+  html { -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+  body {
+    background:#efe9dc; color:#1d1a16;
+    font:400 17px/2 "Zen Kaku Gothic New",system-ui,sans-serif;
+    font-feature-settings:"palt"; letter-spacing:.03em; line-break:strict; word-break:auto-phrase;
   }
+  img, video { display:block; width:100%; height:auto; }
+  a { color:inherit; }
+  :focus-visible { outline:3px solid currentColor; outline-offset:3px; }
+  .inner { max-width:1240px; margin:0 auto; padding:0 clamp(22px,5vw,64px); }
+  .copy p + p { margin-top:1em; }
+  .copy p { max-width:31em; text-wrap:pretty; }
+  .kind { font-size:14px; font-weight:500; letter-spacing:.08em; opacity:.72; }
+  h2 { line-height:1.2; }
+  .tech { margin-top:22px; font-size:13px; line-height:1.8; letter-spacing:.02em; opacity:.68; }
+  .go {
+    display:inline-block; margin-top:28px; padding:13px 30px; border-radius:99px;
+    font-weight:700; text-decoration:none; transition:transform .18s ease;
+  }
+  .go:hover { transform:translateY(-3px); }
+  .state { display:inline-block; margin-top:28px; padding:6px 16px; border:1px solid currentColor; border-radius:99px; font-size:14px; font-weight:500; }
+
+  /* 最初の画面：紙の上をアリが歩く */
+  .hero { position:relative; min-height:min(86vh,780px); display:flex; align-items:flex-end; overflow:hidden; cursor:crosshair; }
+  #ants { position:absolute; inset:0; width:100%; height:100%; }
+  .hero .inner { position:relative; width:100%; padding-top:64px; padding-bottom:clamp(36px,6vh,64px); pointer-events:none; }
+  h1 { font:800 clamp(76px,19vw,250px)/.92 "Shippori Mincho",serif; letter-spacing:-.025em; }
+  .lede { margin-top:26px; font:500 clamp(19px,2.3vw,26px)/1.7 "Shippori Mincho",serif; }
+  .hint { margin-top:8px; font-size:14px; color:#6a6358; }
+
+  .index { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); list-style:none; padding:0; }
+  .index a { display:block; height:100%; padding:20px clamp(16px,2vw,28px) 22px; text-decoration:none; transition:padding .18s ease; }
+  .index a:hover { padding-top:12px; padding-bottom:30px; }
+  .index b { display:block; font:800 clamp(18px,1.9vw,24px)/1.4 "Shippori Mincho",serif; }
+  .index span { font-size:13px; opacity:.75; }
+  .c-mix  { background:#1c1138; color:#f4edff; }
+  .c-ant  { background:#3a2616; color:#f2e6d2; }
+  .c-word { background:#f6c95f; color:#2a1d05; }
+  .c-pia  { background:#070b12; color:#f3cf7e; }
+
+  /* まぜるな危険! */
+  .mix { background:radial-gradient(90% 70% at 72% 40%,#3a2467 0%,#1c1138 62%,#120a26 100%); color:#efe7fb; padding:clamp(72px,10vw,130px) 0; overflow:hidden; }
+  .mix .inner { display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:clamp(32px,6vw,88px); align-items:center; }
+  .mix h2 {
+    margin:10px 0 24px; font:900 clamp(44px,6.6vw,88px)/1.15 "Zen Kaku Gothic New",sans-serif; letter-spacing:.01em;
+    background:linear-gradient(180deg,#ffe48a,#ff9a3d); -webkit-background-clip:text; background-clip:text; color:transparent;
+    transform:rotate(-2.5deg); transform-origin:left bottom;
+  }
+  .mix .go { background:linear-gradient(180deg,#ff8a4c,#f4562f); color:#fff; box-shadow:0 10px 30px rgba(244,86,47,.35); }
+  .flask { position:relative; }
+  .phone { width:min(100%,360px); margin-left:auto; border-radius:26px; overflow:hidden; box-shadow:0 0 0 1px rgba(255,255,255,.14),0 30px 80px rgba(0,0,0,.55); }
+  .crown { position:absolute; left:-36%; bottom:9%; width:50%; border-radius:12px; overflow:hidden; transform:rotate(-5deg); box-shadow:0 18px 50px rgba(0,0,0,.55); }
+
+  /* Ant Garden */
+  .ant { background:#2c1c10; color:#f2e6d2; }
+    .ant .inner { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:clamp(24px,5vw,72px); padding-top:clamp(52px,7vw,92px); padding-bottom:clamp(72px,9vw,120px); }
+  .ant h2 { margin-top:10px; font:800 clamp(44px,6.4vw,84px)/1.1 "Shippori Mincho",serif; letter-spacing:-.01em; }
+  .ant .go { background:#e8b65e; color:#2c1c10; }
+
+  /* WORDECK */
+  .word { background:#f3ead6; color:#26190c; padding:clamp(72px,10vw,130px) 0; }
+  .word .inner { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:clamp(32px,5vw,72px); align-items:center; }
+  .word h2 { margin:10px 0 24px; font:800 clamp(44px,6vw,80px)/1.1 "Shippori Mincho",serif; color:#a8301f; }
+  .word .state { color:#a8301f; }
+  .deck { position:relative; padding-bottom:28%; }
+  .deck img { border-radius:12px; box-shadow:0 22px 60px rgba(60,35,10,.32); }
+  .deck .back { width:86%; }
+  .deck .front { position:absolute; right:0; bottom:0; width:56%; transform:rotate(2.5deg); }
+
+  /* Piano Rhythm */
+  .pia { background:#070b12; color:#e6ebf2; padding-bottom:clamp(72px,10vw,130px); }
+  .keys {
+    height:clamp(70px,9vw,120px);
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='120' preserveAspectRatio='none'%3E%3Crect width='280' height='120' fill='%23e9edf2'/%3E%3Cg stroke='%23070b12' stroke-width='1.2'%3E%3Cpath d='M40 0v120M80 0v120M120 0v120M160 0v120M200 0v120M240 0v120M280 0v120'/%3E%3C/g%3E%3Cg fill='%23070b12'%3E%3Crect x='27' width='26' height='74'/%3E%3Crect x='67' width='26' height='74'/%3E%3Crect x='147' width='26' height='74'/%3E%3Crect x='187' width='26' height='74'/%3E%3Crect x='227' width='26' height='74'/%3E%3C/g%3E%3C/svg%3E") left top/280px 100% repeat-x;
+  }
+  .pia .inner { padding-top:clamp(56px,7vw,96px); }
+  .pia .top { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:clamp(24px,5vw,72px); margin-bottom:clamp(36px,5vw,64px); }
+  .pia h2 { margin-top:10px; font:800 clamp(44px,6vw,80px)/1.1 "Shippori Mincho",serif; color:#f3cf7e; }
+  .pia .state { color:#f3cf7e; }
+  .pia .stage { border-radius:14px; overflow:hidden; box-shadow:0 0 0 1px rgba(255,255,255,.1),0 30px 90px rgba(243,207,126,.09); }
+
+  footer { background:#efe9dc; padding:36px 0 44px; font-size:14px; }
+
+  @media (max-width:820px) {
+    body { font-size:16px; }
+    .index { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .mix .inner, .ant .inner, .word .inner, .pia .top { grid-template-columns:minmax(0,1fr); }
+    .phone { width:min(74%,320px); margin:0 auto; }
+    .word .deck { order:2; }
+  }
+  @media (max-width:1180px) { .crown { display:none; } }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .go, .index a { transition:none; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
+
+<header class="hero" id="top">
+  <canvas id="ants" aria-hidden="true"></canvas>
+  <div class="inner">
     <h1>ikdmtm</h1>
-    <p class="lede">個人で作っているゲームと<br>シミュレーションの目録です。</p>
-  </header>
+    <p class="lede">個人で作っているゲームとシミュレーションを集めました。</p>
+    <p class="hint" id="hint">このあたりをクリックすると、砂糖を置けます。</p>
+  </div>
+</header>
 
-  <nav aria-label="作品の一覧">
-    <ol class="index">
-      <li><a href="#donotmix"><i>01</i><b>まぜるな危険!</b><span>遊べます</span></a></li>
-      <li><a href="#ant"><i>02</i><b>Ant Garden</b><span>遊べます</span></a></li>
-      <li><a href="#wordeck"><i>03</i><b>WORDECK</b><span>制作中</span></a></li>
-      <li><a href="#piano"><i>04</i><b>Piano Rhythm</b><span>制作中</span></a></li>
-    </ol>
-  </nav>
+<nav aria-label="作品の一覧">
+  <ol class="index">
+    <li class="c-mix"><a href="#donotmix"><b>まぜるな危険!</b><span>遊べます</span></a></li>
+    <li class="c-ant"><a href="#ant"><b>Ant Garden</b><span>遊べます</span></a></li>
+    <li class="c-word"><a href="#wordeck"><b>WORDECK</b><span>制作中</span></a></li>
+    <li class="c-pia"><a href="#piano"><b>Piano Rhythm</b><span>制作中</span></a></li>
+  </ol>
+</nav>
 
-  <main>
-    <article class="work" id="donotmix">
-      <div class="sticky">
-        <p class="no">01</p>
-        <h2>まぜるな危険!</h2>
+<main>
+  <section class="mix" id="donotmix">
+    <div class="inner">
+      <div class="copy">
         <p class="kind">ブラウザゲーム</p>
-        <p class="desc">元素を落として合体させるスイカゲーム形式のパズルに、実在の化学反応を入れました。混ぜてはいけないものを混ぜると爆発します。44種類の物質と41の反応を収録し、日本語と英語で遊べます。</p>
+        <h2>まぜるな危険!</h2>
+        <p>フラスコに元素を落として、スイカゲームのようにくっつけていくパズルです。同じ原子がくっつくと分子になり、分子が原子や別の分子と出会うと実在の化学反応が起きます。</p>
+        <p>ナトリウムと水のような危険な組み合わせは爆発します。物質44種類と反応41種類を収録していて、日本語と英語で遊べます。</p>
         <p class="tech">TypeScript / matter.js / Vite / Cloudflare Pages</p>
         <a class="go" href="https://donotmix.app">遊ぶ →</a>
       </div>
-      <div class="shot"><img src="assets/donotmix.webp" alt="巨大な塩の結晶が完成した瞬間のゲーム画面" loading="lazy"></div>
-    </article>
+      <div class="flask">
+        <div class="phone"><video data-play muted loop playsinline preload="none" poster="assets/donotmix-play.webp" aria-label="元素が積み上がっていくプレイ画面"><source src="assets/donotmix-play.webm" type="video/webm"></video></div>
+        <div class="crown"><img src="assets/donotmix.webp" alt="王冠をかぶった巨大な塩の結晶" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
 
-    <article class="work" id="ant">
-      <div class="sticky">
-        <p class="no">02</p>
-        <h2>Ant Garden</h2>
+  <section class="ant" id="ant">
+    <video data-play muted loop playsinline preload="none" poster="assets/ant.webp" aria-label="地上と土の断面でアリが動き回る画面"><source src="assets/ant-play.webm" type="video/webm"></video>
+    <div class="inner">
+      <div>
         <p class="kind">アリの巣の観察シミュレーター</p>
-        <p class="desc">アリが巣を掘り、餌を運び、季節とともに世代を重ねる様子を、地上と土の断面で観察します。働きアリは年齢や経験、コロニーの必要から仕事を選び、フェロモンをたどって行列を作ります。</p>
+        <h2>Ant Garden</h2>
+      </div>
+      <div class="copy">
+        <p>アリが巣を掘り、餌を運ぶ様子を、地上と土の断面で観察できます。蜂蜜やコオロギを置くと、見つけたアリが道しるべのフェロモンを残し、行列ができます。</p>
+        <p>部屋の位置と形は乱数とまわりの状況で決まるので、同じ巣は二つとありません。夏の終わりから秋のはじめには羽アリが結婚飛行に飛び立ち、冬はアリが深い部屋に集まります。</p>
         <p class="tech">JavaScript / 外部パッケージなしで動作</p>
         <a class="go" href="demos/ant-garden/">観察する →</a>
       </div>
-      <div class="shot"><img src="assets/ant.webp" alt="地上と土の断面。縦穴から育児室や食料庫が分かれている" loading="lazy"></div>
-    </article>
+    </div>
+  </section>
 
-    <article class="work" id="wordeck">
-      <div class="sticky">
-        <p class="no">03</p>
+  <section class="word" id="wordeck">
+    <div class="inner">
+      <div class="copy">
+        <p class="kind">英単語のローグライクカードバトル</p>
         <h2>WORDECK</h2>
-        <p class="kind">英単語ローグライクカードバトル</p>
-        <p class="desc">1単語が1枚のカードになるデッキ構築ゲームです。大学受験・英検・TOEICのコースがあります。オンライン対戦は、同じシードと操作列をそれぞれの端末で再現する方式です。</p>
+        <p>カードゲームを遊んでいたら、英単語を勝手に覚えていた。そんなゲームを目指して作っています。</p>
+        <p>1単語が1枚のカードで、カードの効果は単語の意味どおりです。abandon（見捨てる）は手札を全部捨てて同じ枚数を引き、postpone（延期する）は敵の次の行動を1回飛ばします。大学受験、英検、TOEICのコースがあり、オンライン対戦のモードもあります。</p>
         <p class="tech">React / TypeScript / Vite / Cloudflare Workers / Durable Objects</p>
         <span class="state">制作中</span>
       </div>
-      <div class="shot"><img src="assets/wordeck.webp" alt="英単語カードで虫と戦う戦闘画面" loading="lazy"></div>
-    </article>
-
-    <article class="work" id="piano">
-      <div class="sticky">
-        <p class="no">04</p>
-        <h2>Piano Rhythm</h2>
-        <p class="kind">MIDI鍵盤で遊ぶ音楽ゲーム</p>
-        <p class="desc">音ゲーを遊んでいたら、実際のピアノで曲を弾けるようになっていた。それを目指すブラウザゲームです。カノンとクラシックの計29曲を、区間ごとに練習できます。</p>
-        <p class="tech">TypeScript / Vite / Web MIDI / Cloudflare Workers / Supabase</p>
-        <span class="state">制作中</span>
+      <div class="deck">
+        <img class="back" src="assets/wordeck.webp" alt="英単語カードで虫と戦う戦闘画面" loading="lazy">
+        <img class="front" src="assets/wordeck-reward.webp" alt="報酬の単語カードを選ぶ画面" loading="lazy">
       </div>
-      <div class="shot"><img src="assets/piano.webp" alt="降ってくるノーツと鍵盤が並ぶ演奏画面" loading="lazy"></div>
-    </article>
-  </main>
+    </div>
+  </section>
 
-  <footer><a href="https://github.com/ikdmtm">GitHub</a></footer>
-</div>
+  <section class="pia" id="piano">
+    <div class="keys" aria-hidden="true"></div>
+    <div class="inner">
+      <div class="top">
+        <div>
+          <p class="kind">MIDI鍵盤で遊ぶ音楽ゲーム</p>
+          <h2>Piano Rhythm</h2>
+        </div>
+        <div class="copy">
+          <p>音ゲーを遊んでいたら、実際のピアノで曲を弾けるようになっていた。それを目指して作っている、MIDI鍵盤向けのブラウザゲームです。</p>
+          <p>ノーツの色は右手が金色、左手が青緑で、濃さが音の強さを示し、ノーツには指番号も付いています。カノンとクラシック28曲の計29曲を、右手、左手、両手、全曲から選び、区間を指定して練習できます。</p>
+          <p class="tech">TypeScript / Vite / Web MIDI / Cloudflare Workers / Supabase</p>
+          <span class="state">制作中</span>
+        </div>
+      </div>
+      <div class="stage"><img src="assets/piano.webp" alt="降ってくるノーツと鍵盤が並ぶ演奏画面" loading="lazy"></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="inner"><a href="https://github.com/ikdmtm">GitHub</a></div></footer>
+
+<script>
+(() => {
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 画面に入っている間だけ動画を再生する
+  const videos = document.querySelectorAll('video[data-play]');
+  if (!still) {
+    const seen = new IntersectionObserver(entries => {
+      for (const e of entries) {
+        if (e.isIntersecting) e.target.play().catch(() => {});
+        else e.target.pause();
+      }
+    }, { threshold: 0.25 });
+    videos.forEach(v => seen.observe(v));
+  }
+
+  // 最初の画面のアリ
+  const hero = document.querySelector('.hero');
+  const cv = document.getElementById('ants');
+  const g = cv.getContext('2d');
+  let W = 0, H = 0, nest = { x: 0, y: 0 };
+  const size = () => {
+    const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height;
+    cv.width = W * d; cv.height = H * d;
+    g.setTransform(d, 0, 0, d, 0, 0);
+    nest = { x: W * 0.84, y: H * 0.72 };
+  };
+  size();
+  addEventListener('resize', size);
+
+  const count = Math.round(Math.min(46, Math.max(16, W / 30)));
+  const ants = Array.from({ length: count }, (_, i) => ({
+    x: nest.x + (Math.random() - .5) * W * .7,
+    y: nest.y + (Math.random() - .5) * H * .7,
+    a: Math.random() * 6.28,
+    v: .55 + Math.random() * .4,
+    t: Math.random() * 10,
+    load: false,
+    scale: .85 + Math.random() * .35,
+  }));
+  const sugar = [];
+  const trail = [];
+
+  const toward = (o, x, y, k) => {
+    let d = Math.atan2(y - o.y, x - o.x) - o.a;
+    d = Math.atan2(Math.sin(d), Math.cos(d));
+    o.a += d * k;
+  };
+
+  const step = () => {
+    for (const o of ants) {
+      o.t += .32 * o.v;
+      o.a += (Math.random() - .5) * .34;
+      if (o.load) {
+        toward(o, nest.x, nest.y, .14);
+        if (Math.random() < .3) trail.push({ x: o.x, y: o.y, life: 1 });
+        if (Math.hypot(o.x - nest.x, o.y - nest.y) < 10) { o.load = false; o.a += 3.14; }
+      } else {
+        let best = null, dist = Infinity;
+        for (const s of sugar) {
+          const d = Math.hypot(s.x - o.x, s.y - o.y);
+          if (d < dist) { dist = d; best = s; }
+        }
+        if (best && dist < Math.max(W, H)) {
+          toward(o, best.x, best.y, .1);
+          if (dist < 7) { best.left--; o.load = true; o.a += 3.14; }
+        }
+      }
+      const m = o.load ? 1.25 : 1;
+      o.x += Math.cos(o.a) * o.v * m;
+      o.y += Math.sin(o.a) * o.v * m;
+      if (o.x < -12) o.x = W + 12; else if (o.x > W + 12) o.x = -12;
+      if (o.y < -12) o.y = H + 12; else if (o.y > H + 12) o.y = -12;
+    }
+    for (let i = sugar.length - 1; i >= 0; i--) if (sugar[i].left <= 0) sugar.splice(i, 1);
+    for (const p of trail) p.life -= .006;
+    while (trail.length && trail[0].life <= 0) trail.shift();
+  };
+
+  const drawAnt = o => {
+    const leg = Math.sin(o.t * 2) * 1.6;
+    g.save();
+    g.translate(o.x, o.y);
+    g.rotate(o.a);
+    g.scale(o.scale, o.scale);
+    g.strokeStyle = '#2a2015';
+    g.lineWidth = .7;
+    g.beginPath();
+    for (const [x, s] of [[2.2, 1], [0, -1], [-2.2, 1]]) {
+      g.moveTo(x, 0); g.lineTo(x + leg * s, 4.4);
+      g.moveTo(x, 0); g.lineTo(x - leg * s, -4.4);
+    }
+    g.stroke();
+    g.fillStyle = '#231a10';
+    for (const [x, rx, ry] of [[-4, 3, 2.1], [0, 1.9, 1.3], [3.3, 1.9, 1.7]]) {
+      g.beginPath(); g.ellipse(x, 0, rx, ry, 0, 0, 6.3); g.fill();
+    }
+    if (o.load) {
+      g.fillStyle = '#fffdf6'; g.strokeStyle = '#a89a80'; g.lineWidth = .5;
+      g.beginPath(); g.rect(5, -1.6, 3.2, 3.2); g.fill(); g.stroke();
+    }
+    g.restore();
+  };
+
+  const draw = () => {
+    g.clearRect(0, 0, W, H);
+    g.fillStyle = '#6a5d48';
+    for (const p of trail) {
+      g.globalAlpha = p.life * .28;
+      g.beginPath(); g.arc(p.x, p.y, 1, 0, 6.3); g.fill();
+    }
+    g.globalAlpha = 1;
+    g.fillStyle = '#231a10';
+    g.beginPath(); g.ellipse(nest.x, nest.y, 8, 4.5, 0, 0, 6.3); g.fill();
+    for (const s of sugar) {
+      g.fillStyle = '#fffdf6'; g.strokeStyle = '#b5a88f'; g.lineWidth = .6;
+      for (const c of s.grains.slice(0, Math.ceil(s.left / 2))) {
+        g.beginPath(); g.rect(s.x + c[0], s.y + c[1], c[2], c[2]); g.fill(); g.stroke();
+      }
+    }
+    ants.forEach(drawAnt);
+  };
+
+  let on = true, raf = 0;
+  const loop = () => { step(); draw(); raf = on ? requestAnimationFrame(loop) : 0; };
+  if (still) {
+    for (let i = 0; i < 30; i++) step();
+    draw();
+  } else {
+    loop();
+    new IntersectionObserver(([e]) => {
+      on = e.isIntersecting;
+      if (on && !raf) loop();
+    }).observe(hero);
+  }
+
+  hero.addEventListener('click', e => {
+    const r = cv.getBoundingClientRect();
+    const grains = Array.from({ length: 12 }, () => [(Math.random() - .5) * 18, (Math.random() - .5) * 12, 2 + Math.random() * 2]);
+    if (sugar.length > 5) sugar.shift();
+    sugar.push({ x: e.clientX - r.left, y: e.clientY - r.top, left: 24, grains });
+    document.getElementById('hint').style.visibility = 'hidden';
+    if (still) draw();
+  });
+})();
+</script>
 </body>
 </html>
