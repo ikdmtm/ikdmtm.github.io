@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ikdmtm — 作ったもの</title>
-<meta name="description" content="個人で作っているゲームとシミュレーションを集めました。">
+<meta name="description" content="ゲームやシミュレーションなど、作ったものを置いています。">
 <meta property="og:title" content="ikdmtm — 作ったもの">
-<meta property="og:description" content="個人で作っているゲームとシミュレーションを集めました。">
+<meta property="og:description" content="ゲームやシミュレーションなど、作ったものを置いています。">
 <meta property="og:image" content="https://ikdmtm.github.io/assets/ant.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,11 +39,11 @@
   .hero { position:relative; min-height:min(86vh,780px); display:flex; align-items:flex-end; overflow:hidden; cursor:crosshair; }
   #ants { position:absolute; inset:0; width:100%; height:100%; }
   .hero .inner { position:relative; width:100%; padding-top:64px; padding-bottom:clamp(36px,6vh,64px); pointer-events:none; }
-  h1 { font:800 clamp(76px,19vw,250px)/.92 "Shippori Mincho",serif; letter-spacing:-.025em; }
-  .lede { margin-top:26px; font:500 clamp(19px,2.3vw,26px)/1.7 "Shippori Mincho",serif; }
-  .hint { margin-top:8px; font-size:14px; color:#6a6358; }
+  .name { position:absolute; top:clamp(20px,3vw,34px); left:calc(max(0px,(100% - 1240px) / 2) + clamp(22px,5vw,64px)); font:800 20px/1 "Shippori Mincho",serif; letter-spacing:.02em; pointer-events:none; }
+  h1 { font:800 clamp(26px,3.8vw,52px)/1.5 "Shippori Mincho",serif; letter-spacing:.01em; }
+  .hint { margin-top:14px; font-size:14px; color:#6a6358; }
 
-  .index { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); list-style:none; padding:0; }
+  .index { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); list-style:none; padding:0; }
   .index a { display:block; height:100%; padding:20px clamp(16px,2vw,28px) 22px; text-decoration:none; transition:padding .18s ease; }
   .index a:hover { padding-top:12px; padding-bottom:30px; }
   .index b { display:block; font:800 clamp(18px,1.9vw,24px)/1.4 "Shippori Mincho",serif; }
@@ -53,11 +53,19 @@
   .c-word { background:#f6c95f; color:#2a1d05; }
   .c-pia  { background:#070b12; color:#f3cf7e; }
 
+  /* 作品の共通部分。色は --bg --fg --accent で変える（追加方法は README.md） */
+  .work { --bg:#f3ead6; --fg:#26190c; --accent:#a8301f; background:var(--bg); color:var(--fg); padding:clamp(72px,10vw,130px) 0; overflow:hidden; }
+  .work h2 { margin:10px 0 24px; font:800 clamp(44px,6vw,80px)/1.1 "Shippori Mincho",serif; color:var(--accent); }
+  .work .go { background:var(--accent); color:var(--bg); }
+  .work .state { color:var(--accent); }
+  .split { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:clamp(32px,5vw,72px); align-items:center; }
+  .shot { border-radius:12px; overflow:hidden; box-shadow:0 22px 60px rgba(0,0,0,.3); }
+
   /* まぜるな危険! */
-  .mix { background:radial-gradient(90% 70% at 72% 40%,#3a2467 0%,#1c1138 62%,#120a26 100%); color:#efe7fb; padding:clamp(72px,10vw,130px) 0; overflow:hidden; }
-  .mix .inner { display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:clamp(32px,6vw,88px); align-items:center; }
+  .mix { --bg:#1c1138; --fg:#efe7fb; --accent:#f4562f; background:radial-gradient(90% 70% at 72% 40%,#3a2467 0%,#1c1138 62%,#120a26 100%); }
+  .mix .split { grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:clamp(32px,6vw,88px); }
   .mix h2 {
-    margin:10px 0 24px; font:900 clamp(44px,6.6vw,88px)/1.15 "Zen Kaku Gothic New",sans-serif; letter-spacing:.01em;
+    font:900 clamp(44px,6.6vw,88px)/1.15 "Zen Kaku Gothic New",sans-serif; letter-spacing:.01em;
     background:linear-gradient(180deg,#ffe48a,#ff9a3d); -webkit-background-clip:text; background-clip:text; color:transparent;
     transform:rotate(-2.5deg); transform-origin:left bottom;
   }
@@ -67,41 +75,35 @@
   .crown { position:absolute; left:-36%; bottom:9%; width:50%; border-radius:12px; overflow:hidden; transform:rotate(-5deg); box-shadow:0 18px 50px rgba(0,0,0,.55); }
 
   /* Ant Garden */
-  .ant { background:#2c1c10; color:#f2e6d2; }
-    .ant .inner { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:clamp(24px,5vw,72px); padding-top:clamp(52px,7vw,92px); padding-bottom:clamp(72px,9vw,120px); }
-  .ant h2 { margin-top:10px; font:800 clamp(44px,6.4vw,84px)/1.1 "Shippori Mincho",serif; letter-spacing:-.01em; }
-  .ant .go { background:#e8b65e; color:#2c1c10; }
+  .ant { --bg:#2c1c10; --fg:#f2e6d2; --accent:#e8b65e; padding:0 0 clamp(72px,9vw,120px); }
+  .ant > video { max-width:1600px; margin:0 auto; }
+  .ant h2 { color:var(--fg); }
+  .ant .split { align-items:start; padding-top:clamp(52px,7vw,92px); }
 
   /* WORDECK */
-  .word { background:#f3ead6; color:#26190c; padding:clamp(72px,10vw,130px) 0; }
-  .word .inner { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:clamp(32px,5vw,72px); align-items:center; }
-  .word h2 { margin:10px 0 24px; font:800 clamp(44px,6vw,80px)/1.1 "Shippori Mincho",serif; color:#a8301f; }
-  .word .state { color:#a8301f; }
   .deck { position:relative; padding-bottom:28%; }
   .deck img { border-radius:12px; box-shadow:0 22px 60px rgba(60,35,10,.32); }
   .deck .back { width:86%; }
   .deck .front { position:absolute; right:0; bottom:0; width:56%; transform:rotate(2.5deg); }
 
   /* Piano Rhythm */
-  .pia { background:#070b12; color:#e6ebf2; padding-bottom:clamp(72px,10vw,130px); }
+  .pia { --bg:#070b12; --fg:#e6ebf2; --accent:#f3cf7e; padding-top:0; }
   .keys {
     height:clamp(70px,9vw,120px);
     background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='120' preserveAspectRatio='none'%3E%3Crect width='280' height='120' fill='%23e9edf2'/%3E%3Cg stroke='%23070b12' stroke-width='1.2'%3E%3Cpath d='M40 0v120M80 0v120M120 0v120M160 0v120M200 0v120M240 0v120M280 0v120'/%3E%3C/g%3E%3Cg fill='%23070b12'%3E%3Crect x='27' width='26' height='74'/%3E%3Crect x='67' width='26' height='74'/%3E%3Crect x='147' width='26' height='74'/%3E%3Crect x='187' width='26' height='74'/%3E%3Crect x='227' width='26' height='74'/%3E%3C/g%3E%3C/svg%3E") left top/280px 100% repeat-x;
   }
   .pia .inner { padding-top:clamp(56px,7vw,96px); }
-  .pia .top { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:clamp(24px,5vw,72px); margin-bottom:clamp(36px,5vw,64px); }
-  .pia h2 { margin-top:10px; font:800 clamp(44px,6vw,80px)/1.1 "Shippori Mincho",serif; color:#f3cf7e; }
-  .pia .state { color:#f3cf7e; }
-  .pia .stage { border-radius:14px; overflow:hidden; box-shadow:0 0 0 1px rgba(255,255,255,.1),0 30px 90px rgba(243,207,126,.09); }
+  .pia .split { align-items:start; margin-bottom:clamp(36px,5vw,64px); }
+  .pia .shot { border-radius:14px; box-shadow:0 0 0 1px rgba(255,255,255,.1),0 30px 90px rgba(243,207,126,.09); }
 
   footer { background:#efe9dc; padding:36px 0 44px; font-size:14px; }
 
   @media (max-width:820px) {
     body { font-size:16px; }
     .index { grid-template-columns:repeat(2,minmax(0,1fr)); }
-    .mix .inner, .ant .inner, .word .inner, .pia .top { grid-template-columns:minmax(0,1fr); }
+    .split, .mix .split { grid-template-columns:minmax(0,1fr); }
     .phone { width:min(74%,320px); margin:0 auto; }
-    .word .deck { order:2; }
+    .deck { order:2; }
   }
   @media (max-width:1180px) { .crown { display:none; } }
   @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .go, .index a { transition:none; } }
@@ -111,9 +113,9 @@
 
 <header class="hero" id="top">
   <canvas id="ants" aria-hidden="true"></canvas>
+  <p class="name">ikdmtm</p>
   <div class="inner">
-    <h1>ikdmtm</h1>
-    <p class="lede">個人で作っているゲームとシミュレーションを集めました。</p>
+    <h1>ゲームやシミュレーションなど、<br>作ったものを置いています。</h1>
     <p class="hint" id="hint">このあたりをクリックすると、砂糖を置けます。</p>
   </div>
 </header>
@@ -128,15 +130,15 @@
 </nav>
 
 <main>
-  <section class="mix" id="donotmix">
-    <div class="inner">
+  <section class="work mix" id="donotmix">
+    <div class="inner split">
       <div class="copy">
         <p class="kind">ブラウザゲーム</p>
         <h2>まぜるな危険!</h2>
         <p>フラスコに元素を落として、スイカゲームのようにくっつけていくパズルです。同じ原子がくっつくと分子になり、分子が原子や別の分子と出会うと実在の化学反応が起きます。</p>
         <p>ナトリウムと水のような危険な組み合わせは爆発します。物質44種類と反応41種類を収録していて、日本語と英語で遊べます。</p>
         <p class="tech">TypeScript / matter.js / Vite / Cloudflare Pages</p>
-        <a class="go" href="https://donotmix.app">遊ぶ →</a>
+        <a class="go" href="https://donotmix.app" target="_blank" rel="noopener">遊ぶ →</a>
       </div>
       <div class="flask">
         <div class="phone"><video data-play muted loop playsinline preload="none" poster="assets/donotmix-play.webp" aria-label="元素が積み上がっていくプレイ画面"><source src="assets/donotmix-play.webm" type="video/webm"></video></div>
@@ -145,9 +147,9 @@
     </div>
   </section>
 
-  <section class="ant" id="ant">
+  <section class="work ant" id="ant">
     <video data-play muted loop playsinline preload="none" poster="assets/ant.webp" aria-label="地上と土の断面でアリが動き回る画面"><source src="assets/ant-play.webm" type="video/webm"></video>
-    <div class="inner">
+    <div class="inner split">
       <div>
         <p class="kind">アリの巣の観察シミュレーター</p>
         <h2>Ant Garden</h2>
@@ -156,13 +158,13 @@
         <p>アリが巣を掘り、餌を運ぶ様子を、地上と土の断面で観察できます。蜂蜜やコオロギを置くと、見つけたアリが道しるべのフェロモンを残し、行列ができます。</p>
         <p>部屋の位置と形は乱数とまわりの状況で決まるので、同じ巣は二つとありません。夏の終わりから秋のはじめには羽アリが結婚飛行に飛び立ち、冬はアリが深い部屋に集まります。</p>
         <p class="tech">JavaScript / 外部パッケージなしで動作</p>
-        <a class="go" href="demos/ant-garden/">観察する →</a>
+        <a class="go" href="demos/ant-garden/" target="_blank" rel="noopener">観察する →</a>
       </div>
     </div>
   </section>
 
-  <section class="word" id="wordeck">
-    <div class="inner">
+  <section class="work" id="wordeck">
+    <div class="inner split">
       <div class="copy">
         <p class="kind">英単語のローグライクカードバトル</p>
         <h2>WORDECK</h2>
@@ -178,10 +180,10 @@
     </div>
   </section>
 
-  <section class="pia" id="piano">
+  <section class="work pia" id="piano">
     <div class="keys" aria-hidden="true"></div>
     <div class="inner">
-      <div class="top">
+      <div class="split">
         <div>
           <p class="kind">MIDI鍵盤で遊ぶ音楽ゲーム</p>
           <h2>Piano Rhythm</h2>
@@ -193,7 +195,7 @@
           <span class="state">制作中</span>
         </div>
       </div>
-      <div class="stage"><img src="assets/piano.webp" alt="降ってくるノーツと鍵盤が並ぶ演奏画面" loading="lazy"></div>
+      <div class="shot"><img src="assets/piano.webp" alt="降ってくるノーツと鍵盤が並ぶ演奏画面" loading="lazy"></div>
     </div>
   </section>
 </main>
