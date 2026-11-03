@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ikdmtm — 作ったものの目録</title>
+<meta name="description" content="ikdmtm が個人で作っているゲームとシミュレーションの目録。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+  :root { --paper:#efebe2; --ink:#1d1a16; --sub:#6a6358; --line:#cfc8b9; --mark:#b93a1c; }
+  * { box-sizing:border-box; margin:0; }
+  html { -webkit-text-size-adjust:100%; }
+  body { background:var(--paper); color:var(--ink); font:400 16px/1.9 "Zen Kaku Gothic New",system-ui,sans-serif; }
+  a { color:inherit; }
+  img { display:block; width:100%; height:auto; }
+  .wrap { max-width:1240px; margin:0 auto; padding:0 clamp(20px,4vw,56px); }
+
+  header { padding:clamp(56px,10vw,120px) 0 clamp(40px,6vw,72px); }
+  h1 { font:700 clamp(64px,15vw,190px)/.95 "Shippori Mincho",serif; letter-spacing:-.02em; }
+  .lede { margin-top:28px; font:500 clamp(18px,2.2vw,24px)/1.7 "Shippori Mincho",serif; }
+
+  .index { list-style:none; padding:0; border-top:1px solid var(--ink); columns:2; column-gap:40px; }
+  .index li { break-inside:avoid; border-bottom:1px solid var(--line); }
+  .index a { display:flex; gap:14px; align-items:baseline; padding:9px 0; text-decoration:none; }
+  .index a:hover b { color:var(--mark); }
+  .index i { font:500 13px "Shippori Mincho",serif; color:var(--sub); }
+  .index b { font-weight:500; }
+  .index span { margin-left:auto; font-size:13px; color:var(--sub); }
+
+  .work { display:grid; grid-template-columns:minmax(0,4fr) minmax(0,8fr); column-gap:clamp(24px,4vw,56px); padding:clamp(48px,7vw,88px) 0; border-bottom:1px solid var(--ink); scroll-margin-top:12px; }
+  .no { font:500 14px "Shippori Mincho",serif; color:var(--mark); }
+  h2 { margin-top:6px; font:700 clamp(30px,3.6vw,44px)/1.25 "Shippori Mincho",serif; }
+  .kind { margin-top:6px; font-size:14px; color:var(--sub); }
+  .desc { margin-top:20px; }
+  .tech { margin-top:18px; font-size:13px; line-height:1.7; color:var(--sub); }
+  .go { display:inline-block; margin-top:20px; font-weight:700; color:var(--mark); text-underline-offset:5px; }
+  .go:hover { color:var(--ink); }
+  .state { display:block; margin-top:20px; font-size:14px; font-weight:500; color:var(--sub); }
+  .sticky { position:sticky; top:32px; align-self:start; }
+  .shot { background:#111; }
+  footer { padding:40px 0 64px; font-size:14px; color:var(--sub); }
+
+  @media (max-width:800px) {
+    .index { columns:1; }
+    .work { grid-template-columns:minmax(0,1fr); row-gap:24px; }
+    .sticky { position:static; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>ikdmtm</h1>
+    <p class="lede">個人で作っているゲームと<br>シミュレーションの目録です。</p>
+  </header>
+
+  <nav aria-label="作品の一覧">
+    <ol class="index">
+      <li><a href="#donotmix"><i>01</i><b>まぜるな危険!</b><span>遊べます</span></a></li>
+      <li><a href="#ant"><i>02</i><b>Ant Garden</b><span>遊べます</span></a></li>
+      <li><a href="#wordeck"><i>03</i><b>WORDECK</b><span>制作中</span></a></li>
+      <li><a href="#piano"><i>04</i><b>Piano Rhythm</b><span>制作中</span></a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <article class="work" id="donotmix">
+      <div class="sticky">
+        <p class="no">01</p>
+        <h2>まぜるな危険!</h2>
+        <p class="kind">ブラウザゲーム</p>
+        <p class="desc">元素を落として合体させるスイカゲーム形式のパズルに、実在の化学反応を入れました。混ぜてはいけないものを混ぜると爆発します。44種類の物質と41の反応を収録し、日本語と英語で遊べます。</p>
+        <p class="tech">TypeScript / matter.js / Vite / Cloudflare Pages</p>
+        <a class="go" href="https://donotmix.app">遊ぶ →</a>
+      </div>
+      <div class="shot"><img src="assets/donotmix.webp" alt="巨大な塩の結晶が完成した瞬間のゲーム画面" loading="lazy"></div>
+    </article>
+
+    <article class="work" id="ant">
+      <div class="sticky">
+        <p class="no">02</p>
+        <h2>Ant Garden</h2>
+        <p class="kind">アリの巣の観察シミュレーター</p>
+        <p class="desc">アリが巣を掘り、餌を運び、季節とともに世代を重ねる様子を、地上と土の断面で観察します。働きアリは年齢や経験、コロニーの必要から仕事を選び、フェロモンをたどって行列を作ります。</p>
+        <p class="tech">JavaScript / 外部パッケージなしで動作</p>
+        <a class="go" href="demos/ant-garden/">観察する →</a>
+      </div>
+      <div class="shot"><img src="assets/ant.webp" alt="地上と土の断面。縦穴から育児室や食料庫が分かれている" loading="lazy"></div>
+    </article>
+
+    <article class="work" id="wordeck">
+      <div class="sticky">
+        <p class="no">03</p>
+        <h2>WORDECK</h2>
+        <p class="kind">英単語ローグライクカードバトル</p>
+        <p class="desc">1単語が1枚のカードになるデッキ構築ゲームです。大学受験・英検・TOEICのコースがあります。オンライン対戦は、同じシードと操作列をそれぞれの端末で再現する方式です。</p>
+        <p class="tech">React / TypeScript / Vite / Cloudflare Workers / Durable Objects</p>
+        <span class="state">制作中</span>
+      </div>
+      <div class="shot"><img src="assets/wordeck.webp" alt="英単語カードで虫と戦う戦闘画面" loading="lazy"></div>
+    </article>
+
+    <article class="work" id="piano">
+      <div class="sticky">
+        <p class="no">04</p>
+        <h2>Piano Rhythm</h2>
+        <p class="kind">MIDI鍵盤で遊ぶ音楽ゲーム</p>
+        <p class="desc">音ゲーを遊んでいたら、実際のピアノで曲を弾けるようになっていた。それを目指すブラウザゲームです。カノンとクラシックの計29曲を、区間ごとに練習できます。</p>
+        <p class="tech">TypeScript / Vite / Web MIDI / Cloudflare Workers / Supabase</p>
+        <span class="state">制作中</span>
+      </div>
+      <div class="shot"><img src="assets/piano.webp" alt="降ってくるノーツと鍵盤が並ぶ演奏画面" loading="lazy"></div>
+    </article>
+  </main>
+
+  <footer><a href="https://github.com/ikdmtm">GitHub</a></footer>
+</div>
+</body>
+</html>

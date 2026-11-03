@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#16130f">
+  <meta name="description" content="アリが巣を掘り、餌を運ぶ様子を断面ジオラマで観察できるシミュレーター。">
+  <title>Ant Garden</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%2326201a'/%3E%3Cellipse cx='15' cy='27' rx='7' ry='5.5' fill='%23e7b45a'/%3E%3Ccircle cx='25' cy='24' r='3.5' fill='%23e7b45a'/%3E%3Ccircle cx='33' cy='20' r='5' fill='%23e7b45a'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <svg class="defs" aria-hidden="true"><defs>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12m0-1.5v-6a1.5 1.5 0 0 1 3 0V12m0-5.5a1.5 1.5 0 0 1 3 0V13m0-3.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-2a6 6 0 0 1-5-2.7L4.5 14a1.6 1.6 0 0 1 2.6-1.8L8 13.5"/></symbol>
+    <symbol id="i-honey" viewBox="0 0 24 24"><path d="M12 3c-2 5-6 8-6 12a6 6 0 0 0 12 0c0-4-4-7-6-12Z"/><path d="M9 15.5a3 3 0 0 0 3 3"/></symbol>
+    <symbol id="i-apple" viewBox="0 0 24 24"><path d="M12 7c-2-2-7-1.5-7 4 0 5 3.5 9.5 7 8 3.5 1.5 7-3 7-8 0-5.5-5-6-7-4Z"/><path d="M12 7c0-2 1-3.5 3-4"/></symbol>
+    <symbol id="i-bug" viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="4.5" ry="6"/><circle cx="12" cy="6.5" r="2.2"/><path d="M7.5 11 4 9m12.5 2L20 9M7.5 15H4m12.5 0H20m-12 3-3 3m11-3 3 3M11 5 9 2m4 3 2-3"/></symbol>
+    <symbol id="i-seed" viewBox="0 0 24 24"><ellipse cx="8" cy="14" rx="3" ry="4.5" transform="rotate(-25 8 14)"/><ellipse cx="16" cy="12" rx="3" ry="4.5" transform="rotate(20 16 12)"/><ellipse cx="12" cy="19" rx="2.5" ry="3.5" transform="rotate(80 12 19)"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7Z"/></symbol>
+    <symbol id="i-trail" viewBox="0 0 24 24"><path d="M4 20c3-2 2-6 6-7s5-3 4-6 3-4 6-3" stroke-dasharray="1.5 3"/><circle cx="4" cy="20" r="1.5"/><circle cx="20" cy="4" r="1.5"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8Z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
+    <symbol id="i-fit" viewBox="0 0 24 24"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m6 0h6v-6"/></symbol>
+    <symbol id="i-crown" viewBox="0 0 24 24"><path d="M4 18 3 7l5 4 4-6 4 6 5-4-1 11Z"/><path d="M4 21h16"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M4 19V5m4 1h8"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></symbol>
+  </defs></svg>
+
+  <main class="stage">
+    <canvas id="view" aria-label="アリの巣の断面ジオラマ" role="img"></canvas>
+  </main>
+
+  <header class="hud hud-top">
+    <div class="brand glass">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="13" cy="27" rx="8" ry="6"/><circle cx="25" cy="24" r="3.6"/><circle cx="34" cy="20" r="5.4"/><path d="M36 15c2-4 5-6 8-6M33 15c0-4 1-7 3-9M24 27l-3 7m4-7 3 7m-5-9-6-4m8 4 4-6" fill="none"/></svg>
+      <div class="brand-text">
+        <button class="colony-name" id="colonyName" title="名前を変える">わたしのアリの巣</button>
+        <div class="clock"><svg class="ico sm" id="clockIcon"><use href="#i-sun"/></svg><span id="dayText">1日目</span><span class="dot">·</span><span id="timeText">07:12</span></div>
+      </div>
+    </div>
+    <div class="stats glass" id="stats" aria-live="off">
+      <div class="stat"><span class="stat-label">働きアリ</span><span class="stat-value" id="sWorkers">0</span></div>
+      <div class="stat"><span class="stat-label">卵・幼虫・蛹</span><span class="stat-value" id="sBrood">0</span></div>
+      <div class="stat wide"><span class="stat-label">食料の貯え</span><span class="stat-value" id="sFood">0</span></div>
+      <div class="stat"><span class="stat-label">巣の深さ</span><span class="stat-value" id="sDepth">0</span></div>
+      <button class="icon-btn" id="notebookBtn" aria-label="観察ノートを開く" aria-expanded="false" title="観察ノート"><svg class="ico"><use href="#i-book"/></svg></button>
+      <button class="icon-btn" id="menuBtn" aria-label="メニュー" title="メニュー"><svg class="ico"><use href="#i-menu"/></svg></button>
+    </div>
+  </header>
+
+  <div class="menu glass" id="menu" hidden>
+    <button data-action="new">新しい巣をはじめる…</button>
+    <button data-action="export">巣のデータを書き出す</button>
+    <button data-action="import">データを読み込む…</button>
+    <button data-action="help">遊び方</button>
+    <input type="file" id="importFile" accept="application/json,.json" hidden>
+  </div>
+
+  <aside class="notebook glass" id="notebook" hidden aria-label="観察ノート">
+    <div class="nb-head">
+      <div class="tabs" role="tablist">
+        <button role="tab" class="tab" aria-selected="true" data-tab="colony">コロニー</button>
+        <button role="tab" class="tab" aria-selected="false" data-tab="ant">個体</button>
+        <button role="tab" class="tab" aria-selected="false" data-tab="journal">日記</button>
+      </div>
+      <button class="icon-btn" id="notebookClose" aria-label="閉じる"><svg class="ico"><use href="#i-close"/></svg></button>
+    </div>
+    <section class="tab-panel" data-panel="colony">
+      <h3>働きアリの数</h3>
+      <div class="chart-wrap">
+        <canvas id="popChart" height="120" aria-label="働きアリの数の推移"></canvas>
+        <div class="chart-tip" id="chartTip" hidden></div>
+      </div>
+      <h3>いまの仕事</h3>
+      <div class="bars" id="taskBars"></div>
+      <h3>貯え</h3>
+      <div class="kv" id="storeList"></div>
+      <h3>巣</h3>
+      <div class="kv" id="nestList"></div>
+    </section>
+    <section class="tab-panel" data-panel="ant" hidden>
+      <div id="antCard" class="ant-card"><p class="muted">地上や巣の中のアリをクリックすると、その子の様子が見られます。</p></div>
+    </section>
+    <section class="tab-panel" data-panel="journal" hidden>
+      <ol class="journal" id="journal"></ol>
+    </section>
+  </aside>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <footer class="hud hud-bottom">
+    <div class="hint" id="hint" hidden></div>
+    <nav class="dock glass" aria-label="道具">
+      <div class="group" role="radiogroup" aria-label="道具">
+        <button class="tool" role="radio" aria-checked="true" data-tool="look" title="観察 (Esc)"><svg class="ico"><use href="#i-hand"/></svg><span>観察</span></button>
+        <button class="tool food" role="radio" aria-checked="false" data-tool="honey" title="蜂蜜 (Q)"><svg class="ico"><use href="#i-honey"/></svg><span>蜂蜜</span></button>
+        <button class="tool food" role="radio" aria-checked="false" data-tool="apple" title="りんご (W)"><svg class="ico"><use href="#i-apple"/></svg><span>りんご</span></button>
+        <button class="tool food" role="radio" aria-checked="false" data-tool="cricket" title="コオロギ (E)"><svg class="ico"><use href="#i-bug"/></svg><span>コオロギ</span></button>
+        <button class="tool food" role="radio" aria-checked="false" data-tool="seeds" title="種 (R)"><svg class="ico"><use href="#i-seed"/></svg><span>種</span></button>
+      </div>
+      <div class="sep"></div>
+      <div class="group speed" aria-label="時間の速さ">
+        <button class="tool icon-only" id="playBtn" title="一時停止 (Space)" aria-label="一時停止"><svg class="ico"><use href="#i-pause"/></svg></button>
+        <button class="speed-btn" data-speed="1" aria-pressed="true">1×</button>
+        <button class="speed-btn" data-speed="3" aria-pressed="false">3×</button>
+        <button class="speed-btn" data-speed="10" aria-pressed="false">10×</button>
+        <button class="speed-btn" data-speed="30" aria-pressed="false">30×</button>
+      </div>
+      <div class="sep"></div>
+      <div class="group">
+        <button class="tool icon-only toggle" id="pherBtn" aria-pressed="false" title="フェロモンの道を見る (P)" aria-label="フェロモン表示"><svg class="ico"><use href="#i-trail"/></svg></button>
+        <button class="tool icon-only toggle" id="labelBtn" aria-pressed="true" title="部屋の名前 (L)" aria-label="部屋の名前"><svg class="ico"><use href="#i-tag"/></svg></button>
+        <button class="tool icon-only" id="queenBtn" title="女王を見る" aria-label="女王を見る"><svg class="ico"><use href="#i-crown"/></svg></button>
+        <button class="tool icon-only" id="fitBtn" title="全体を見る (F)" aria-label="全体を見る"><svg class="ico"><use href="#i-fit"/></svg></button>
+      </div>
+    </nav>
+  </footer>
+
+  <dialog class="modal" id="newDialog">
+    <form method="dialog" class="modal-body">
+      <h2>新しい巣をはじめる</h2>
+      <p class="muted">いまの巣は置き換えられます。</p>
+      <label class="field"><span>巣の名前</span><input name="name" maxlength="24" value="わたしのアリの巣"></label>
+      <fieldset class="choice">
+        <legend>はじまり方</legend>
+        <label><input type="radio" name="mode" value="colony" checked><span><b>小さなコロニーから</b><small>女王と働きアリ12匹。すぐに巣づくりが始まります。</small></span></label>
+        <label><input type="radio" name="mode" value="queen"><span><b>女王一匹から</b><small>結婚飛行を終えた女王が、ひとりで最初の部屋を掘ります。</small></span></label>
+      </fieldset>
+      <div class="modal-actions">
+        <button value="cancel" class="btn ghost">やめる</button>
+        <button value="ok" class="btn primary">はじめる</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="helpDialog">
+    <form method="dialog" class="modal-body">
+      <h2>Ant Garden へようこそ</h2>
+      <ul class="help">
+        <li><b>地上と断面</b> 上半分は巣の周りの地面、下半分は土の断面です。アリたちが自分で縦穴と部屋を掘り、掘った土は入口のまわりに積もっていきます。</li>
+        <li><b>餌を置く</b> 下の道具から餌を選び、地面をクリック。見つけたアリが道しるべ（フェロモン）を残し、仲間を連れて運び始めます。<svg class="ico sm inline"><use href="#i-trail"/></svg> で道しるべが見えます。</li>
+        <li><b>観察する</b> ドラッグで移動、ホイールやピンチで拡大。アリをクリックすると、その子の仕事や経歴がわかり、追いかけることもできます。</li>
+        <li><b>季節</b> 1年は28日（春夏秋冬が7日ずつ）。昼は暖かい浅い部屋へ、夜は深い部屋へ子どもを運び、夏に育った羽アリは夏の終わりから秋のはじめに結婚飛行で飛び立ちます。冬は深い部屋に集まって春を待ちます。</li>
+        <li><b>時間</b> 1日はふつうの速さで10分。30×にすると巣が育つ様子を早送りで見られます。自動で保存されます。</li>
+      </ul>
+      <div class="modal-actions"><button value="ok" class="btn primary">観察をはじめる</button></div>
+    </form>
+  </dialog>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
