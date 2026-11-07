@@ -50,6 +50,8 @@
   .index span { font-size:13px; opacity:.75; }
   .c-mix  { background:#1c1138; color:#f4edff; }
   .c-ant  { background:#3a2616; color:#f2e6d2; }
+  .c-mog  { background:#c84b1c; color:#fff6ee; }
+  .c-taki { background:#090605; color:#f2a44e; }
   .c-word { background:#f6c95f; color:#2a1d05; }
   .c-pia  { background:#070b12; color:#f3cf7e; }
 
@@ -80,6 +82,21 @@
   .ant h2 { color:var(--fg); }
   .ant .split { align-items:start; padding-top:clamp(52px,7vw,92px); }
 
+  /* モグネイター */
+  .mog { --bg:#fbf8f4; --fg:#2b211b; --accent:#c84b1c; }
+  .mog h2 { font-family:"Zen Kaku Gothic New",sans-serif; font-weight:900; font-size:clamp(38px,4.4vw,62px); letter-spacing:.01em; white-space:nowrap; }
+  .screens { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,1.6vw,22px); align-items:start; }
+  .screens img { border-radius:18px; box-shadow:0 0 0 1px rgba(43,33,27,.08),0 18px 44px rgba(90,50,20,.14); }
+  .screens img:nth-child(2) { margin-top:9%; }
+  .screens img:nth-child(3) { margin-top:18%; }
+
+  /* takibi */
+  .taki { --bg:#090605; --fg:#eadfce; --accent:#f2a44e; padding:0 0 clamp(72px,9vw,120px); }
+  .taki > video { max-width:1600px; margin:0 auto; }
+  .taki h2 { font:300 clamp(44px,6vw,80px)/1.1 "Zen Kaku Gothic New",sans-serif; letter-spacing:.14em; color:var(--fg); }
+  .taki .split { align-items:start; padding-top:clamp(52px,7vw,92px); }
+  .taki .go { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+
   /* WORDECK */
   .deck { position:relative; padding-bottom:28%; }
   .deck img { border-radius:12px; box-shadow:0 22px 60px rgba(60,35,10,.32); }
@@ -104,6 +121,10 @@
     .split, .mix .split { grid-template-columns:minmax(0,1fr); }
     .phone { width:min(74%,320px); margin:0 auto; }
     .deck { order:2; }
+    .screens { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .screens img:first-child { display:none; }
+    .screens img:nth-child(2) { margin-top:0; }
+    .screens img:nth-child(3) { margin-top:14%; }
   }
   @media (max-width:1180px) { .crown { display:none; } }
   @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .go, .index a { transition:none; } }
@@ -124,6 +145,8 @@
   <ol class="index">
     <li class="c-mix"><a href="#donotmix"><b>まぜるな危険!</b><span>遊べます</span></a></li>
     <li class="c-ant"><a href="#ant"><b>Ant Garden</b><span>遊べます</span></a></li>
+    <li class="c-mog"><a href="#mognator"><b>モグネイター</b><span>使えます</span></a></li>
+    <li class="c-taki"><a href="#takibi"><b>takibi</b><span>使えます</span></a></li>
     <li class="c-word"><a href="#wordeck"><b>WORDECK</b><span>制作中</span></a></li>
     <li class="c-pia"><a href="#piano"><b>Piano Rhythm</b><span>制作中</span></a></li>
   </ol>
@@ -159,6 +182,40 @@
         <p>部屋の位置と形は乱数とまわりの状況で決まるので、同じ巣は二つとありません。夏の終わりから秋のはじめには羽アリが結婚飛行に飛び立ち、冬はアリが深い部屋に集まります。</p>
         <p class="tech">JavaScript / 外部パッケージなしで動作</p>
         <a class="go" href="demos/ant-garden/" target="_blank" rel="noopener">観察する →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="work mog" id="mognator">
+    <div class="inner split">
+      <div class="copy">
+        <p class="kind">今日のごはんを決めるWebアプリ</p>
+        <h2>モグネイター</h2>
+        <p>何を食べるか決められないときのためのアプリです。誰と一緒か、お腹の空き具合、このあとの予定など、自分のことを最大7問答えると、合いそうな料理を3つ出します。質問に食べ物の言葉は出てきません。</p>
+        <p>料理を選ぶと、現在地や指定した場所の近くで、その料理を食べられそうな店を探します。料理は74種類です。店のデータはOverture Mapsから作っていて、サーバーの処理はなく、静的なファイルだけで動きます。</p>
+        <p class="tech">React / TypeScript / Vite / Cloudflare Workers / Overture Maps</p>
+        <a class="go" href="https://mognator.ikdmtm.workers.dev/" target="_blank" rel="noopener">使ってみる →</a>
+      </div>
+      <div class="screens">
+        <img src="assets/mognator-q.webp" alt="店でどう過ごしたいかを聞く質問の画面" loading="lazy">
+        <img src="assets/mognator-result.webp" alt="焼肉、サムギョプサル、もつ鍋が並ぶ結果の画面" loading="lazy">
+        <img src="assets/mognator-shops.webp" alt="現在地の近くの焼肉店が並ぶ画面" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="work taki" id="takibi">
+    <video data-play muted loop playsinline preload="none" poster="assets/takibi.webp" aria-label="夜の地面で薪が燃える焚き火"><source src="assets/takibi-play.webm" type="video/webm"></video>
+    <div class="inner split">
+      <div>
+        <p class="kind">ブラウザで焚き火をするアプリ</p>
+        <h2>takibi</h2>
+      </div>
+      <div class="copy">
+        <p>マッチで火をつけると、焚き火がちょうど25分燃えます。薪を1本くべると5分延び、火が消えると熾火が残ります。作業のあいだや寝る前に、つけておくためのものです。</p>
+        <p>炎、薪、熾火は、画像を使わずに計算で描いています。開いたときに炎の流れを計算して記録し、薪に沿って再生しています。音は実際の焚き火の録音です。</p>
+        <p class="tech">JavaScript / WebGL2 / Web Audio / Cloudflare Workers</p>
+        <a class="go" href="https://takibi.ikdmtm.workers.dev/" target="_blank" rel="noopener">火をつける →</a>
       </div>
     </div>
   </section>
