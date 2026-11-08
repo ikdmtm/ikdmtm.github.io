@@ -44,13 +44,14 @@
   .hint { margin-top:14px; font-size:14px; color:#6a6358; }
 
   .index { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); list-style:none; padding:0; }
-  .index a { display:block; height:100%; padding:20px clamp(16px,2vw,28px) 22px; text-decoration:none; transition:padding .18s ease; }
+  .index a { display:block; height:100%; padding:20px clamp(14px,1.6vw,24px) 22px; text-decoration:none; transition:padding .18s ease; }
   .index a:hover { padding-top:12px; padding-bottom:30px; }
-  .index b { display:block; font:800 clamp(18px,1.9vw,24px)/1.4 "Shippori Mincho",serif; }
+  .index b { display:block; font:800 clamp(17px,1.5vw,22px)/1.4 "Shippori Mincho",serif; }
   .index span { font-size:13px; opacity:.75; }
   .c-mix  { background:#1c1138; color:#f4edff; }
   .c-ant  { background:#3a2616; color:#f2e6d2; }
-  .c-mog  { background:#c84b1c; color:#fff6ee; }
+  .c-mog  { background:#fbf8f4; color:#c84b1c; }
+  .c-moji { background:#c8401a; color:#fff; }
   .c-taki { background:#090605; color:#f2a44e; }
   .c-word { background:#f6c95f; color:#2a1d05; }
   .c-pia  { background:#070b12; color:#f3cf7e; }
@@ -97,6 +98,14 @@
   .taki .split { align-items:start; padding-top:clamp(52px,7vw,92px); }
   .taki .go { background:transparent; color:var(--accent); border:1px solid var(--accent); }
 
+  /* MOJIE */
+  .moji { --bg:#c8401a; --fg:#fff7f2; --accent:#fff; }
+  .moji h2 { font:700 clamp(44px,6vw,80px)/1.1 "Zen Kaku Gothic New",sans-serif; letter-spacing:.12em; }
+  .moji h2 small { display:block; margin-top:10px; font-size:clamp(14px,1.3vw,18px); font-weight:500; letter-spacing:.4em; }
+  .moji .go { color:#c8401a; }
+  .moji .shot { border-radius:10px; box-shadow:0 26px 70px rgba(60,10,0,.35); }
+  .moji .split { grid-template-columns:minmax(0,4fr) minmax(0,8fr); }
+
   /* WORDECK */
   .deck { position:relative; padding-bottom:28%; }
   .deck img { border-radius:12px; box-shadow:0 22px 60px rgba(60,35,10,.32); }
@@ -118,7 +127,7 @@
   @media (max-width:820px) {
     body { font-size:16px; }
     .index { grid-template-columns:repeat(2,minmax(0,1fr)); }
-    .split, .mix .split { grid-template-columns:minmax(0,1fr); }
+    .split, .mix .split, .moji .split { grid-template-columns:minmax(0,1fr); }
     .phone { width:min(74%,320px); margin:0 auto; }
     .deck { order:2; }
     .screens { grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -147,6 +156,7 @@
     <li class="c-ant"><a href="#ant"><b>Ant Garden</b><span>遊べます</span></a></li>
     <li class="c-mog"><a href="#mognator"><b>モグネイター</b><span>使えます</span></a></li>
     <li class="c-taki"><a href="#takibi"><b>takibi</b><span>使えます</span></a></li>
+    <li class="c-moji"><a href="#mojie"><b>MOJIE</b><span>使えます</span></a></li>
     <li class="c-word"><a href="#wordeck"><b>WORDECK</b><span>制作中</span></a></li>
     <li class="c-pia"><a href="#piano"><b>Piano Rhythm</b><span>制作中</span></a></li>
   </ol>
@@ -217,6 +227,20 @@
         <p class="tech">JavaScript / WebGL2 / Web Audio / Cloudflare Workers</p>
         <a class="go" href="https://takibi.ikdmtm.workers.dev/" target="_blank" rel="noopener">火をつける →</a>
       </div>
+    </div>
+  </section>
+
+  <section class="work moji" id="mojie">
+    <div class="inner split">
+      <div class="copy">
+        <p class="kind">文字で写真を描くツール</p>
+        <h2>MOJIE<small>文字絵</small></h2>
+        <p>写真を、選んだ文字だけで描き直すアスキーアート変換ツールです。漢字、かな、数字、記号など、使う文字を2〜60文字の範囲で自由に選べます。</p>
+        <p>文字の濃さは、実際に描いて測り、薄い順に並べます。マスごとに濃さと輪郭の向きが合う文字を選ぶので、少ない文字でも形が出ます。画像はブラウザの中だけで処理し、サーバーには送りません。</p>
+        <p class="tech">JavaScript / Canvas / GitHub Pages</p>
+        <a class="go" href="https://ikdmtm.github.io/mojie/" target="_blank" rel="noopener">使ってみる →</a>
+      </div>
+      <div class="shot"><img src="assets/mojie.webp" alt="漢字20文字で、王冠をかぶった塩の結晶の絵を色付きで描いた変換画面" loading="lazy"></div>
     </div>
   </section>
 
