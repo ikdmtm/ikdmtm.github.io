@@ -53,6 +53,7 @@
   .c-mog  { background:#fbf8f4; color:#c84b1c; }
   .c-moji { background:#c8401a; color:#fff; }
   .c-taki { background:#090605; color:#f2a44e; }
+  .c-hs   { background:#0b0c0f; color:#d9ff4a; }
   .c-word { background:#f6c95f; color:#2a1d05; }
   .c-pia  { background:#070b12; color:#f3cf7e; }
 
@@ -106,6 +107,13 @@
   .moji .shot { border-radius:10px; box-shadow:0 26px 70px rgba(60,10,0,.35); }
   .moji .split { grid-template-columns:minmax(0,4fr) minmax(0,8fr); }
 
+  /* HUMAN SPEC */
+  .hs { --bg:#0b0c0f; --fg:#e8eaee; --accent:#d9ff4a; background:radial-gradient(80% 70% at 75% 45%,#1a1d24 0%,#0b0c0f 70%); }
+  .hs h2 { font:800 clamp(40px,5.4vw,72px)/1.1 ui-monospace,"SF Mono",Menlo,Consolas,monospace; letter-spacing:.02em; color:var(--fg); }
+  .hs h2 span { color:var(--accent); }
+  .hs h2 small { display:block; margin-top:12px; font:500 clamp(14px,1.3vw,18px)/1.4 "Zen Kaku Gothic New",sans-serif; letter-spacing:.3em; color:var(--fg); opacity:.7; }
+  .hs .screens img { box-shadow:0 0 0 1px rgba(255,255,255,.12),0 24px 60px rgba(0,0,0,.55); }
+
   /* WORDECK */
   .deck { position:relative; padding-bottom:28%; }
   .deck img { border-radius:12px; box-shadow:0 22px 60px rgba(60,35,10,.32); }
@@ -157,6 +165,7 @@
     <li class="c-mog"><a href="#mognator"><b>モグネイター</b><span>使えます</span></a></li>
     <li class="c-taki"><a href="#takibi"><b>takibi</b><span>使えます</span></a></li>
     <li class="c-moji"><a href="#mojie"><b>MOJIE</b><span>使えます</span></a></li>
+    <li class="c-hs"><a href="#humanspec"><b>HUMAN SPEC</b><span>遊べます</span></a></li>
     <li class="c-word"><a href="#wordeck"><b>WORDECK</b><span>制作中</span></a></li>
     <li class="c-pia"><a href="#piano"><b>Piano Rhythm</b><span>制作中</span></a></li>
   </ol>
@@ -241,6 +250,24 @@
         <a class="go" href="https://mojie.ikdmtm.workers.dev/" target="_blank" rel="noopener">使ってみる →</a>
       </div>
       <div class="shot"><img src="assets/mojie.webp" alt="漢字20文字で、王冠をかぶった塩の結晶の絵を色付きで描いた変換画面" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="work hs" id="humanspec">
+    <div class="inner split">
+      <div class="copy">
+        <p class="kind">脳の処理性能を測るブラウザゲーム</p>
+        <h2>HUMAN <span>SPEC</span><small>人間性能テスト</small></h2>
+        <p>知識ではなく、頭の回転を測るミニゲーム集です。推論、記憶、処理速度、抑制、切替、空間、反射の7分野を、それぞれ1〜2分のゲームで測ります。スコアは、でたらめに押したときが0、「強い」の目安が1000で、上限はありません。</p>
+        <p>ランキングにはGoogleログインで参加できますが、受け取るのは本人を区別するIDだけで、メールアドレスや名前は受け取りません。送られてきた操作の記録をサーバーで再生してスコアを計算し直すので、スコアだけを書き換えた記録は載りません。</p>
+        <p class="tech">React / TypeScript / Vite / Cloudflare Workers / D1</p>
+        <a class="go" href="https://human-spec.ikdmtm.workers.dev/" target="_blank" rel="noopener">測ってみる →</a>
+      </div>
+      <div class="screens">
+        <img src="assets/humanspec-home.webp" alt="7分野のスコアをレーダーチャートで示すホーム画面" loading="lazy">
+        <img src="assets/humanspec-reasoning.webp" alt="3×3に並んだ図形から、右下に入る1枚を選ぶパターン推論の画面" loading="lazy">
+        <img src="assets/humanspec-spatial.webp" alt="2つの図形が、回しただけか裏返したかを答えるメンタルローテーションの画面" loading="lazy">
+      </div>
     </div>
   </section>
 
